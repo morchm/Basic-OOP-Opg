@@ -21,6 +21,16 @@ class ShowActor{
 
 
 
+        // ---- CARD UI ----
+        const cardContainer = document.createElement("section");
+        cardContainer.id = "cardContainer";
+        document.body.appendChild(cardContainer);
+
+        const card = document.createElement("div");
+        card.id = "card";
+        cardContainer.appendChild(card);
+        
+
 
 
     }//END constructor
