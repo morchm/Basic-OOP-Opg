@@ -1,9 +1,13 @@
 import { gsap } from "gsap";
+import ChangeContents from "./ChangeContent";
 
 class ShowActor{
     constructor(data) {
+
+        const CC = new ChangeContents();
+
         // ---- MENU ----
-        // For at skifte mellem enemies 
+        // For at skifte mellem enemies (nav)
         const menuContainer = document.createElement("nav");
         menuContainer.id = "menuContainer";
         document.body.appendChild(menuContainer);
@@ -15,11 +19,12 @@ class ShowActor{
         data.forEach((el, index) => {
             const menuItem = document.createElement("li");
             menuItem.setAttribute("data-index", `${index}`);
+            menuItem.setAttribute("data-index", `${index}`);
             menuItem.className = "menuItem";
             menuItem.textContent = el.name; 
             menuItemContainer.appendChild(menuItem);
             //Eventlistener til changeContent:
-            menuItem.addEventListener("click", (e) => this.changeContent(e, el));
+            menuItem.addEventListener("click", (e) => CC.getData(e, el));
         });
         // ---- END MENU ----
 
@@ -33,6 +38,26 @@ class ShowActor{
         const card = document.createElement("div");
         card.id = "card";
         cardContainer.appendChild(card);
+
+        card.addEventListener("click", (e) => {
+            if (CC.currentDataIndex > -1) {
+                document.querySelector("#info").style.display = "block";
+                gsap.to("#info", {
+                    duration: 0.3,
+                    scaleX: -1,
+                    alpha: 0,
+                    repeat: 1,
+                    yoyo: true,
+                });
+                
+                let addInfo = data[CC.currentDataIndex].information;
+
+                let mStrength = document.querySelector("#strength");
+                
+                let mLives = document.querySelector("#lives");
+                mLives.textContent = addInfo.lives;
+            }
+        });
         // ---- END CARD UI ----
 
 
@@ -50,6 +75,22 @@ class ShowActor{
         showImg.id = "showImg";
         showImg.src = "../assets/images/ninja.png";
         document.querySelector("#imagecon").appendChild(showImg);
+
+        const infoChild = document.createElement("div");
+        infoChild.id = "infoChild";
+        document.querySelector("#info").appendChild(infoChild);
+
+        const strength = document.createElement("div");
+        strength.id = "strength";
+        document.querySelector("#infoChild").appendChild(strength);
+
+        const lives = document.createElement("div");
+        lives.id = "lives";
+        document.querySelector("#infoChild").appendChild(lives);
+
+        card.addEventListener("click", (e) => {
+            console.log("card clicked");
+        })
         //---- END CARD INHOLD ----
 
 
@@ -62,40 +103,6 @@ class ShowActor{
         
         
     }//END constructor
-    
-     // ---- CHANGE CONTENT ----
-     changeContent(e, data) {
-        // this.getData(e, data)
-
-        // ---- GSAP animation ----
-        let elem = document.querySelector("#cardContainer");
-        let cardAnim = gsap.to(elem, {
-            duration: 0.3,
-            scaleX: -1,
-            alpha: 0,
-            repeat: 1,
-            yoyo: true,
-        })
-        cardAnim.vars.onRepeat = () => {
-            if (cardAnim.iteration() % 2 == 0)
-            this.getData(e, data)
-        }
-     }
-     getData(e, data) {
-        this.currentDataIndex = e.target.dataset.index;
-
-        let mHeadline = document.querySelector("#headline");
-        mHeadline.textContent = data.name;
-
-        const imageSrc = data.img;
-        const img = "../assets/images/" + imageSrc;
-
-        let mImg = document.querySelector("#showImg");
-        mImg.src = img;
-        
-        let mContent = document.querySelector("#content");
-        mContent.textContent = data.text;
-     }
-}
+};
 
 export default ShowActor;
