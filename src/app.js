@@ -1,6 +1,6 @@
 import ShowActor from "./ShowActor";
 import "../css/style.scss";
-import { gsap } from "gsap";
+
 
 (() => {
   const dataObj = [
@@ -25,10 +25,3 @@ import { gsap } from "gsap";
   ];
   new ShowActor(dataObj);
 })();
-
-// const card = document.querySelector("#card");
-
-// card.addEventListener("click", (event) => {
-//   gsap.to(event.target, {rotationY:180});
-// })
-
