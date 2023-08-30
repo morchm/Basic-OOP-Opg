@@ -19,7 +19,6 @@ class ShowActor{
         data.forEach((el, index) => {
             const menuItem = document.createElement("li");
             menuItem.setAttribute("data-index", `${index}`);
-            menuItem.setAttribute("data-index", `${index}`);
             menuItem.className = "menuItem";
             menuItem.textContent = el.name; 
             menuItemContainer.appendChild(menuItem);
@@ -76,6 +75,8 @@ class ShowActor{
         showImg.src = "../assets/images/ninja.png";
         document.querySelector("#imagecon").appendChild(showImg);
 
+
+
         const infoChild = document.createElement("div");
         infoChild.id = "infoChild";
         document.querySelector("#info").appendChild(infoChild);
@@ -89,7 +90,7 @@ class ShowActor{
         document.querySelector("#infoChild").appendChild(lives);
 
         card.addEventListener("click", (e) => {
-            console.log("card clicked");
+        console.log("card clicked");
         })
         //---- END CARD INHOLD ----
 
@@ -103,6 +104,8 @@ class ShowActor{
         
         
     }//END constructor
+
+    
 };
 
 export default ShowActor;
